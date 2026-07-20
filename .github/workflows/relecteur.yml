@@ -37,18 +37,19 @@ jobs:
         run: |
           git fetch origin master
           git diff origin/master...HEAD > changements.diff
-          {
-            echo "Tu es le critique de la Boutique du Coin, le meme qu'hier."
-            echo "Lis d'abord le fichier CONVENTIONS.md du projet : c'est la loi."
-            echo "Puis juge UNIQUEMENT les changements ci-dessous (un diff git),"
-            echo "en francais, au format de verdict exige par les conventions."
-            echo "Tu ne corriges JAMAIS : tu juges, c'est tout."
-            echo ""
-            echo "Les changements a juger :"
-            echo ""
-            cat changements.diff
-          } > mission.txt
-          $HOME/.opencode/bin/opencode run "$(cat mission.txt)" > verdict.md || true
+          echo "=== CONVENTIONS.md ===" > mission.txt
+          cat CONVENTIONS.md >> mission.txt
+          echo "" >> mission.txt
+          echo "=== CHANGEMENTS A JUGER ===" >> mission.txt
+          cat changements.diff >> mission.txt
+          echo "" >> mission.txt
+          echo "=== MISSION ===" >> mission.txt
+          echo "Tu es le critique de la Boutique du Coin." >> mission.txt
+          echo "Tu as lu CONVENTIONS.md ci-dessus : c'est la loi." >> mission.txt
+          echo "Juge UNIQUEMENT les changements ci-dessus (le diff git)," >> mission.txt
+          echo "en francais, au format de verdict exige par les conventions." >> mission.txt
+          echo "Tu ne corriges JAMAIS : tu juges, c'est tout." >> mission.txt
+          timeout 120 $HOME/.opencode/bin/opencode run "$(cat mission.txt)" > verdict.md || true
           if [ ! -s verdict.md ]; then
             echo "Le relecteur n'a pas pu rendre son verdict. Verifier la cle GEMINI_API_KEY dans Settings > Secrets and variables > Actions." > verdict.md
           fi
