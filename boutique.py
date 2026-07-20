@@ -7,7 +7,7 @@ Regles metier (affichees sur le site) :
 - L'argent ne peut jamais devenir negatif : ni un total, ni une remise, ni un stock.
 """
 
-FRAIS_DE_PORT = 4.90
+FRAIS_DE_PORT = 1.00
 PLAFOND_REMISE = 0.20  # 20 % maximum, regle du site
 
 
