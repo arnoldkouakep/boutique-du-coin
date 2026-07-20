@@ -47,7 +47,7 @@ jobs:
             echo ""
             cat changements.diff
           } > mission.txt
-          timeout 120 $HOME/.opencode/bin/opencode run "$(cat mission.txt)" > verdict.md || true
+          timeout 300 $HOME/.opencode/bin/opencode run "$(cat mission.txt)" > verdict.md 2>&1 || true
           if [ ! -s verdict.md ]; then
             echo "Le relecteur n'a pas pu rendre son verdict. Verifier la cle GEMINI_API_KEY dans Settings > Secrets and variables > Actions." > verdict.md
           fi
